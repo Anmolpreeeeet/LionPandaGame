@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.gridlayout.widget.GridLayout;
 
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void imgViewIsTapped(View imageView) {
+        imageView.clearAnimation();
         ImageView tappedImageView = (ImageView) imageView;
 
         // to get the position of image tapped
@@ -91,9 +95,11 @@ public class MainActivity extends AppCompatActivity {
     }
     //rotation on winning
     private void rotation() {
+
         for(int i = 0 ; i < gridLayout.getChildCount() ; i++){
             ImageView imageView = (ImageView) gridLayout.getChildAt(i);
-            imageView.animate().rotationY(1080).setDuration(2500);
+            imageView.clearAnimation();
+            imageView.animate().rotationY(imageView.getRotationY() + 1080).setDuration(2500);
         }
     }
     //nobody won
@@ -119,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     private void resetTheGame() {
         for(int i = 0 ; i < gridLayout.getChildCount() ; i++){
             ImageView imageView = (ImageView) gridLayout.getChildAt(i);
-            imageView.animate().rotationX(720).setDuration(1000);
+            imageView.animate().rotationX(imageView.getRotationX() + 720).setDuration(1000);
             imageView.setImageDrawable(null);
             imageView.setAlpha(0.5f);
         }
